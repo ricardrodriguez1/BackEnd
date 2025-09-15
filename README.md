@@ -1,4 +1,5 @@
 # BackEnd
 BackEnd by Ricard Rodríguez
 
-BackEnd sobre la pagina de Juegos.
+Pagina basada en venta de videoconsolas, componentes PC, videojuegos y figuras.
+
