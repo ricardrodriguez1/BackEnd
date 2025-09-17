@@ -1,5 +1,7 @@
 RF: 
 
+1. Gestión de usuarios
+
 RF1: Registro de usuarios con correo, contraseña y datos personales.
 
 RF2: Inicio de sesión y recuperación de contraseña.
@@ -9,3 +11,36 @@ RF3: Perfil de usuario editable (dirección, teléfono, métodos de pago guardad
 RF4: Historial de pedidos y facturas descargables.
 
 RF5: Posibilidad de añadir productos a listas de deseos o favoritos.
+
+
+2. Catálogo de productos
+
+RF6: Visualización de productos organizados en categorías:
+
+  - Videoconsolas
+
+  - Componentes de PC
+
+  - Videojuegos
+
+  - Figuras/merchandising
+
+RF7: Ficha de producto con: nombre, descripción, precio, imágenes, stock disponible, valoraciones.
+
+RF8: Búsqueda avanzada por nombre, categoría, rango de precios, plataforma (PS5, Xbox, PC, etc.).
+
+RF9: Filtrado y ordenación por relevancia, precio, novedades, más vendidos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
