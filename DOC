@@ -1,0 +1,11 @@
+RF: 
+
+RF1: Registro de usuarios con correo, contraseña y datos personales.
+
+RF2: Inicio de sesión y recuperación de contraseña.
+
+RF3: Perfil de usuario editable (dirección, teléfono, métodos de pago guardados).
+
+RF4: Historial de pedidos y facturas descargables.
+
+RF5: Posibilidad de añadir productos a listas de deseos o favoritos.
