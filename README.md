@@ -11,7 +11,9 @@ Nombre: BossFightStore.com
 
 Para conectar docker con mongo lo primero que haremos sera crear un archivo docker-compose.yaml en el especificaremos todos los parametros necesarios. Seguidamente crearemos un fichero .env donde definiremos el nombre de usuario y contraseña que queramos. A su vez tendremos que crear un fichero .gitignore en el qual simplemente llamaremos al fichero anteriormente creado el .env. 
 
+El siguiente paso sera utilizar la comanda "docker compose -d" para montar los archivos. Una vez tengamos los contenedores correctamente y todo en su sitio, iremos a mongodb compass, en el utilizaremos el metodo de conexion por "autentificacion". Especificaremos el nombre de usuario y contrasenya del fichero .env y arriba del todo pondremos el puerto que tengamos en el fichero docker-compose. Si todo funciona deberia conectarse correctamente.
 
+    !Importante: Si el puerto no funciona puede ser que algo lo este usando asi que cambiamos el primer puerto del fichero docker-compose!
 
 
 
