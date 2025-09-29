@@ -167,5 +167,52 @@ El siguiente paso sera utilizar la comanda "docker compose -d" para montar los a
 
 
 
+3. Identificar relaciones
+
+Usuario – Pedido:
+1 usuario puede realizar muchos pedidos.
+(1:N)
+
+Pedido – Línea de Pedido – Producto:
+Un pedido puede contener muchos productos, y un producto puede aparecer en muchos pedidos → relación N:M resuelta con Línea de Pedido.
+
+Usuario – Carrito:
+Un usuario tiene 1 carrito activo.
+(1:1)
+
+Carrito - Línea de Carrito - Producto:
+Al igual que el pedido: un carrito puede tener muchos productos y un producto puede estar en muchos carritos → N:M.
+
+Categoría – Producto:
+Una categoría tiene muchos productos, pero cada producto pertenece sólo a una categoría.
+(1:N)
+
+Pedido – Factura:
+Cada pedido genera exactamente una factura.
+(1:1)
+
+Pedido – Envío:
+Cada pedido puede tener un registro de envío.
+(1:1 o 1:N si se permiten múltiples envíos).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
