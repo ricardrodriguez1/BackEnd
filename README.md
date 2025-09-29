@@ -1,7 +1,7 @@
 # BackEnd
 BackEnd by Ricard Rodríguez
 
-Pagina basada en venta de videoconsolas, componentes PC, videojuegos y figuras.
+Pagina basada en venta de videoconsolas y videojuegos. "figuras y componentes PC" (si no se complica mucho)
 
 SOFTWARE a utilizar: NODE, GIT, DOCKER, DOCKER-COMPOSE, VISUAL STUDIO.
 
