@@ -18,9 +18,152 @@ El siguiente paso sera utilizar la comanda "docker compose -d" para montar los a
 
 
 
+1. Identificación de entidades principales
+
+- Usuario
+
+    - Puede ser cliente (compra) o administrador (gestiona).
+
+- Producto
+
+    - Incluye videoconsolas, componentes de PC, videojuegos, figuras (categorías).
+
+- Categoría
+
+    - Sirve para organizar los productos.
+
+- Pedido (Pedido)
+
+    - Conjunto de productos que compra un usuario.
+
+- Línea de Pedido
+
+    - Cada producto dentro de un pedido con cantidad y precio.
+
+- Carrito de la compra
+
+    - Productos añadidos por el cliente antes de confirmar la compra.
+
+- Factura / Pago
+
+    - Registra la transacción del pedido.
+
+- Envío
+
+    - Detalles de la entrega del pedido.
 
 
 
+
+2. Identificar atributos básicos por cada entidad
+   
+🔹 Usuario
+
+    id_usuario
+    
+    nombre
+    
+    apellidos
+    
+    email
+    
+    contraseña
+    
+    dirección
+    
+    teléfono
+    
+    rol (cliente / administrador)
+
+🔹 Producto
+
+    id_producto
+    
+    nombre
+    
+    descripción
+    
+    precio
+    
+    stock
+
+    imagen_url
+    
+    id_categoría
+
+🔹 Categoría
+
+    id_categoría
+    
+    nombre (videoconsolas, componentes de PC, videojuegos, figuras)
+
+🔹 Pedido
+
+    id_pedido
+    
+    fecha
+    
+    id_usuario
+    
+    estado (pendiente, pagada, enviada, cancelada)
+    
+    total
+
+🔹 Línea de Pedido
+
+    id_linia
+    
+    id_pedido
+    
+    id_producto
+    
+    cantidad
+    
+    precio_unitario
+    
+    🔹 Carrito
+    
+    id_carret
+    
+    id_usuario
+    
+    fecha_creación
+
+🔹 Línea de Carrito
+
+    id_linia_carret
+    
+    id_carret
+    
+    id_producto
+    
+    cantidad
+
+🔹 Factura / Pago
+
+    id_factura
+    
+    id_pedido
+    
+    fecha
+    
+    método_pago (tarjeta, PayPal, etc.)
+    
+    import_total
+
+🔹 Envío
+
+    id_envío
+    
+    id_pedido
+    
+    dirección_envío
+    
+    empresa_transport
+    
+    código_seguimiento
+    
+    estado (en tráfico, entregado, etc.)
 
 
 
