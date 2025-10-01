@@ -1,1 +1,47 @@
+ADR-002: Estructura inicial del proyecto (Monorepo)
 
+
+Contexto
+
+  - El proyecto contendrá varios componentes:
+
+  - Backend (API con Node.js/Express).
+
+  - Frontend (aplicación web React).
+
+  - Infraestructura y configuraciones (Docker, CI/CD).
+
+  - Necesitamos una estructura que facilite la colaboración y gestión conjunta del código.
+
+
+Decisión
+
+  - Se ha decidido utilizar un monorepo como estructura del proyecto:
+
+  - Un único repositorio con todos sus componentes (frontend, backend e infraestructuras).
+
+  - Organización en directorios separados por cada parte (/frontend, /backend, /infra).
+
+  - Gestión de dependencias y builds con Turborepo para mejorar el rendimiento y coherencia.
+
+  - Integración continua (CI/CD) unificada por todo el proyecto.
+
+
+Consecuencias
+
+Positivas:
+
+  · Todo el código centralizado en un único repositorio.
+
+  · Mejor coordinación entre frontend y backend (versiones siempre alineadas).
+
+  · Posibilidad de compartir código y modelos comunes (ej. definiciones de datos, validaciones).
+
+  · Un solo pipeline de CI/CD, más sencillo de mantener.
+
+
+Negativas:
+
+  · Puede crecer mucho y complicarse si el proyecto se expande demasiado.
+
+  · Requiere herramientas (como Turborepo) para gestionar correctamente la velocidad en builds y macetas.
