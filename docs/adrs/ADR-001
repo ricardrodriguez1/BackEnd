@@ -1,1 +1,62 @@
+ADR-001: Elección de base de datos
+
+Contexto
+
+El proyecto es un e-commerce con un catálogo de productos (videoconsolas, componentes de PC, videojuegos y figuras), usuarios, pedidos y pagos.
+Necesitamos una base de datos capaz de:
+
+  - Guardar entidades variadas (productos con campos distintos, por ejemplo videojuegos con plataforma o componentes de PC con compatibilidad).
+
+  - Ser flexible por cambios rápidos en el esquema durante el desarrollo.
+
+  - Escalar bien para lecturas rápidas (catálogo de productos y consultas de usuario).
+
+
+Decisión
+
+He decidido utilizar MongoDB como base de datos principal:
+
+  - Base de datos NoSQL orientada a documentos, perfecta para almacenar productos con estructuras variadas.
+
+  - Se integrará con Mongoose o Prisma para facilitar la gestión de esquemas.
+
+  - Se desplegará vía Docker para mantener entornos consistentes.
+
+  - Las relaciones (por ejemplo, pedido–producto, usuario–pedido) se gestionarán con referencias o documentos embebidos según el caso.
+
+
+Consecuencias
+
+
+Positivas:
+
+  · Gran flexibilidad para modificar el esquema sin migraciones.
+
+  · Más rápido que implementar y adaptar durante el desarrollo inicial.
+
+  · Integración muy buena con Node.js (ecosistema ME*N stack).
+
+  · Escalabilidad sencilla con sharding y réplicas.
+
+
+Negativas:
+
+  · No es tan fuerte en consistencia de transacciones como PostgreSQL (aunque MongoDB ya soporta multi-document transactions).
+
+  · Algunas consultas muy relacionales pueden resultar más complicadas de implementar.
+
+  · Es necesario diseñar muy bien la estructura de datos para evitar documentos demasiado grandes o duplicación de datos.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
