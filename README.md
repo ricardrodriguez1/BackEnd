@@ -17,6 +17,7 @@ El siguiente paso sera utilizar la comanda "docker compose -d" para montar los a
 
 
 
+API funcionando: <img width="333" height="147" alt="image" src="https://github.com/user-attachments/assets/43501a7d-e5db-43b0-8aeb-21b72404d225" />
 
 
 
