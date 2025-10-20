@@ -93,12 +93,16 @@ Esto genera automáticamente un archivo package.json con la configuración bási
 
 
 
-API funcionando: <img width="333" height="147" alt="image" src="https://github.com/user-attachments/assets/43501a7d-e5db-43b0-8aeb-21b72404d225" />
+API funcionando: 
+
+<img width="333" height="147" alt="image" src="https://github.com/user-attachments/assets/43501a7d-e5db-43b0-8aeb-21b72404d225" />
 
 
 
 
-Productos insertados funcionando: <img width="642" height="752" alt="image" src="https://github.com/user-attachments/assets/35f5f956-fb92-46eb-a0ea-8065e7a99edf" />
+Productos insertados funcionando: 
+
+<img width="642" height="752" alt="image" src="https://github.com/user-attachments/assets/35f5f956-fb92-46eb-a0ea-8065e7a99edf" />
 
 
 
