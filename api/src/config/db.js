@@ -1,8 +1,18 @@
-const mongoose = require('mongoose'); const connectDB = async () => { 
-  try { 
-    await mongoose.connect(process.env.MONGO_URI);     console.log('MongoDB connectat correctament'); 
-  } catch (err) {     console.error(err.message);     process.exit(1); 
-  } 
-}; 
- 
-module.exports = connectDB; 
+// src/config/db.js
+const mongoose = require('mongoose');
+
+const connectDB = async () => {
+  try {
+    const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ecommerce';
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connectat correctament');
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;

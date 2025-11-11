@@ -1,9 +1,10 @@
+// src/models/Product.js
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    required: true,
+    required: true,   // pon true si quieres validar
   },
   descripcion: {
     type: String,
@@ -30,4 +31,5 @@ const productSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+// Exporta con la misma capitalización que usarás en refs/populates
 module.exports = mongoose.model('Product', productSchema);
