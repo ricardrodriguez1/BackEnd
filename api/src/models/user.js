@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+// src/models/user.js
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const { Schema, model } = mongoose;
 
@@ -51,13 +53,41 @@ const usuarioSchema = new Schema(
   }
 );
 
-//  Índice para búsquedas por email
+// Índice para búsquedas por email
 usuarioSchema.index({ email: 1 });
 
-//  Ejemplo de validación custom
+// Validación custom para que no repita email
 usuarioSchema.path("email").validate(async function (value) {
   const count = await mongoose.models.Usuario.countDocuments({ email: value });
   return !count;
 }, "El correo ya está registrado");
 
-export default model("Usuario", usuarioSchema);
+// Hash de la contraseña antes de guardar (solo si se ha modificado)
+usuarioSchema.pre('save', async function (next) {
+  try {
+    // si no cambia la contraseña, seguir
+    if (!this.isModified('contraseña')) return next();
+
+    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    this.contraseña = await bcrypt.hash(this.contraseña, salt);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
+// Método de instancia para comparar contraseñas en el login
+usuarioSchema.methods.comparePassword = async function (plainPassword) {
+  return await bcrypt.compare(plainPassword, this.contraseña);
+};
+
+// Evitar devolver la contraseña en las respuestas JSON
+usuarioSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.contraseña;
+  return obj;
+};
+
+// ✅ CORREGIR EXPORTACIÓN - Usar module.exports
+module.exports = model('Usuario', usuarioSchema);

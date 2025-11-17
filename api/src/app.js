@@ -5,6 +5,11 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+
+// monta rutas de usuario (añade ambas por seguridad)
+app.use('/api/usuarios', require('./routes/userRoutes')); // rutas en español: /api/usuarios/register, /login...
+app.use('/api/users', require('./routes/userRoutes'));    // alias inglés: /api/users/register, /login...
+
 app.use(cors());
 
 // Rutas principales

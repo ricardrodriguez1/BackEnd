@@ -3,19 +3,23 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
-// Registrar nuevo usuario
-router.post('/', userController.registerUser);
+// =========================
+//   AUTH - RUTAS ACTUALES
+// =========================
+router.post('/register', userController.registerUser);
+router.post('/login', userController.loginUser);
 
-// Listar usuarios (solo si se permite)
+// =========================
+//   NUEVA RUTA SEGÚN LA IMAGEN
+// =========================
+router.post('/hogin', userController.loginUser); // ✅ NUEVA RUTA
+
+// =========================
+//   CRUD USUARIOS
+// =========================
 router.get('/', userController.listUsers);
-
-// Obtener usuario por ID
 router.get('/:id', userController.getUser);
-
-// Actualizar parcialmente usuario
 router.patch('/:id', userController.patchUser);
-
-// Eliminar usuario
 router.delete('/:id', userController.deleteUser);
 
 module.exports = router;

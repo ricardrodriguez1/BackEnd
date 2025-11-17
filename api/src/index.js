@@ -1,3 +1,4 @@
+// src/index.js
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
@@ -13,6 +14,8 @@ connectDB();
 
 // Rutas
 app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/usuari', require('./routes/userRoutes')); // ✅ NUEVA RUTA BASE
 
 // Puerto
 const PORT = process.env.PORT || 3000;
