@@ -4,19 +4,17 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(express.json());
 
-// monta rutas de usuario (añade ambas por seguridad)
-app.use('/api/usuarios', require('./routes/userRoutes')); // rutas en español: /api/usuarios/register, /login...
-app.use('/api/users', require('./routes/userRoutes'));    // alias inglés: /api/users/register, /login...
-
+// Middlewares
 app.use(cors());
+app.use(express.json());
 
 // Rutas principales
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/categorias', require('./routes/categoriaRoutes'));
 app.use('/api/pedidos', require('./routes/pedidoRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/usuarios', require('./routes/userRoutes')); // Alias
 
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ecommerce')

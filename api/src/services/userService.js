@@ -11,6 +11,10 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
  */
 const createUser = async (data) => {
   try {
+    // Si ens passen 'password' però el model vol 'contraseña'
+    if (data.password && !data.contraseña) {
+      data.contraseña = data.password;
+    }
     const user = new Usuario(data);
     const saved = await user.save();
     return saved;
@@ -31,14 +35,14 @@ const loginUser = async (email, password) => {
   const ok = await user.comparePassword(password);
   if (!ok) return null;
 
-  const payload = { 
-    id: user._id.toString(), 
-    email: user.email, 
-    rol: user.rol 
+  const payload = {
+    id: user._id.toString(),
+    email: user.email,
+    rol: user.rol
   };
-  
-  const token = jwt.sign(payload, JWT_SECRET, { 
-    expiresIn: JWT_EXPIRES_IN 
+
+  const token = jwt.sign(payload, JWT_SECRET, {
+    expiresIn: JWT_EXPIRES_IN
   });
 
   return { user, token };
@@ -68,7 +72,7 @@ const updateUser = async (id, data) => {
   if (data.contraseña) {
     const user = await Usuario.findById(id);
     if (!user) return null;
-    
+
     Object.keys(data).forEach((k) => {
       user[k] = data[k];
     });

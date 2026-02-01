@@ -1,5 +1,5 @@
 // src/services/pedidoService.js
-const Pedido = require('../models/Pedido');
+const Pedido = require('../models/pedido');
 const mongoose = require('mongoose');
 
 /**

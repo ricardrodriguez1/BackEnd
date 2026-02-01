@@ -15,7 +15,7 @@ const usuarioSchema = new Schema(
     },
     apellidos: {
       type: String,
-      required: [true, "Los apellidos son obligatorios"],
+      required: false, // ✅ Opcional per facilitar el registre
       trim: true,
     },
     email: {

@@ -7,30 +7,35 @@ const userService = require('../services/userService');
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body; // ✅ Cambiar de "contraseña" a "password"
-    
+
     if (!email || !password) {
-      return res.status(400).json({ 
-        message: 'Email y password son obligatorios' 
+      return res.status(400).json({
+        message: 'Email y password son obligatorios'
       });
     }
 
     const result = await userService.loginUser(email, password);
-    
+
     if (!result) {
-      return res.status(401).json({ 
-        message: 'Credenciales inválidas' 
+      return res.status(401).json({
+        message: 'Credenciales inválidas'
       });
     }
 
-    // ✅ RESPONSE EXACTA COMO EN LA IMAGEN
-    return res.json({ 
+    // ✅ RESPONSE AMB TOKEN I USUARI
+    return res.json({
       message: "Login correcto!!! ",
-      token: result.token 
+      token: result.token,
+      user: {
+        id: result.user._id,
+        nombre: result.user.nombre || result.user.email,
+        email: result.user.email
+      }
     });
   } catch (error) {
     console.error('Error en login:', error);
-    return res.status(500).json({ 
-      message: 'Error interno del servidor' 
+    return res.status(500).json({
+      message: 'Error interno del servidor'
     });
   }
 };

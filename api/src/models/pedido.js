@@ -8,8 +8,8 @@ const lineaSchema = new Schema(
   {
     producto: {
       type: Schema.Types.ObjectId,
-      ref: 'Product', // asegúrate de que el modelo Product exista
-      required: [true, 'La línea debe referenciar un producto'],
+      ref: 'Product',
+      required: false, // ✅ Ahora es opcional - permite crear pedidos sin ObjectId de producto
     },
     nombre_producto: {
       type: String,
@@ -59,10 +59,32 @@ const envioSchema = new Schema(
 
 const pedidoSchema = new Schema(
   {
+    // ✅ Usuario ahora es opcional y flexible (puede ser String o ObjectId)
     usuario: {
-      type: Schema.Types.ObjectId,
-      ref: 'Usuario',
-      required: [true, 'El pedido debe pertenecer a un usuario'],
+      type: Schema.Types.Mixed,  // Acepta tanto ObjectId como String
+      required: false,
+    },
+    // ✅ Campos de envío que el frontend envía
+    direccion: {
+      type: String,
+      required: false,
+    },
+    ciudad: {
+      type: String,
+      required: false,
+    },
+    codigo_postal: {
+      type: String,
+      required: false,
+    },
+    telefono: {
+      type: String,
+      required: false,
+    },
+    metodo_pago: {
+      type: String,
+      enum: ['tarjeta', 'paypal', 'transferencia', 'contrareembolso', 'otros'],
+      default: 'tarjeta',
     },
     fecha: {
       type: Date,
