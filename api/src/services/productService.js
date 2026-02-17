@@ -6,9 +6,9 @@ const createProduct = async (productData) => {
   return await newProduct.save();
 };
 
-const listProducts = async ({ page = 1, limit = 20, filter = {} } = {}) => {
+const listProducts = async ({ page = 1, limit = 20, filter = {}, sort = {} } = {}) => {
   const skip = (page - 1) * limit;
-  const docs = await Product.find(filter).skip(skip).limit(limit).lean();
+  const docs = await Product.find(filter).sort(sort).skip(skip).limit(limit).lean();
   const total = await Product.countDocuments(filter);
   return {
     data: docs,

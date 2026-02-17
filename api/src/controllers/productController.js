@@ -26,14 +26,36 @@ const createProduct = async (req, res) => {
 
 /**
  * GET /api/products
+ * Query params: categoria, search, precioMin, precioMax, sort, page, limit
  */
 const listProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
+
+    // Construir filtro
     const filter = {};
     if (req.query.categoria) filter.categoria = req.query.categoria;
-    const result = await productService.listProducts({ page, limit, filter });
+    if (req.query.search) {
+      filter.nombre = { $regex: req.query.search, $options: 'i' }; // búsqueda case-insensitive
+    }
+    if (req.query.precioMin || req.query.precioMax) {
+      filter.precio = {};
+      if (req.query.precioMin) filter.precio.$gte = parseFloat(req.query.precioMin);
+      if (req.query.precioMax) filter.precio.$lte = parseFloat(req.query.precioMax);
+    }
+
+    // Construir ordenación
+    let sort = {};
+    switch (req.query.sort) {
+      case 'precio_asc': sort = { precio: 1 }; break;
+      case 'precio_desc': sort = { precio: -1 }; break;
+      case 'nombre_asc': sort = { nombre: 1 }; break;
+      case 'nombre_desc': sort = { nombre: -1 }; break;
+      default: sort = { createdAt: -1 }; // más recientes primero
+    }
+
+    const result = await productService.listProducts({ page, limit, filter, sort });
     return res.json({ status: 'success', ...result });
   } catch (error) {
     console.error('Error listando productos:', error);
