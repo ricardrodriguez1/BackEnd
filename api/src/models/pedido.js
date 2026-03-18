@@ -96,7 +96,7 @@ const pedidoSchema = new Schema(
       enum: ['pendiente', 'pagado', 'enviado', 'entregado', 'cancelado'],
       default: 'pendiente',
     },
-    lineas: {
+    productos: {
       type: [lineaSchema],
       validate: [
         {
@@ -136,9 +136,9 @@ pedidoSchema.index({ usuario: 1, fecha: -1 });
 // Calcular subtotal de cada línea y total del pedido antes de validar/guardar
 pedidoSchema.pre('validate', function (next) {
   try {
-    if (this.lineas && Array.isArray(this.lineas)) {
+    if (this.productos && Array.isArray(this.productos)) {
       let computedTotal = 0;
-      this.lineas = this.lineas.map((ln) => {
+      this.productos = this.productos.map((ln) => {
         // asegurar tipos
         const cantidad = Number(ln.cantidad || 0);
         const precio = Number(ln.precio_unitario || 0);

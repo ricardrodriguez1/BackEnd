@@ -16,6 +16,7 @@ app.use(express.json());
 connectDB();
 
 // Rutas
+app.use('/api/auth', require('./routes/authRoutes'));       // ✅ Auth (register, login, refresh, logout)
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/usuarios', require('./routes/userRoutes')); // Alias

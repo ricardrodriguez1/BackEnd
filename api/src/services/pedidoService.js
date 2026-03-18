@@ -17,7 +17,7 @@ const getPedidoById = async (id) => {
   if (!mongoose.Types.ObjectId.isValid(id)) return null;
   return await Pedido.findById(id)
     .populate('usuario', 'nombre apellidos email')
-    .populate('lineas.producto', 'nombre precio')
+    .populate('productos.producto', 'nombre precio')
     .lean();
 };
 

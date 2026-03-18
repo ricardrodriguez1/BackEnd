@@ -46,6 +46,9 @@ const usuarioSchema = new Schema(
     dirección: {
       type: String,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,

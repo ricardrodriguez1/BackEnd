@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas principales
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/categorias', require('./routes/categoriaRoutes'));
 app.use('/api/pedidos', require('./routes/pedidoRoutes'));
