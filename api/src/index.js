@@ -5,12 +5,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./docs/swagger');
 
 const app = express();
 
 // Middlewares
 app.use(cors()); // ✅ IMPRESCINDIBLE para que el frontend pueda conectar
 app.use(express.json());
+
+// Swagger docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Conexión a base de datos
 connectDB();
@@ -22,6 +27,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/usuarios', require('./routes/userRoutes')); // Alias
 app.use('/api/usuari', require('./routes/userRoutes'));  // Alias
 app.use('/api/pedidos', require('./routes/pedidoRoutes'));
+app.use('/api/categorias', require('./routes/categoriaRoutes'));
 
 // Ruta de prueba para verificar que el servidor funciona
 app.get('/api/health', (req, res) => {
@@ -32,6 +38,7 @@ app.get('/api/health', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
+    console.log(`📚 Swagger docs: http://localhost:${PORT}/api-docs`);
     console.log(`👉 Rutas disponibles:`);
     console.log(`   - POST /api/users/register`);
     console.log(`   - POST /api/users/login`);

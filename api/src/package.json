@@ -1,5 +1,9 @@
 {
   "scripts": {
     "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
