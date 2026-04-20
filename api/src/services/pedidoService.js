@@ -1,13 +1,53 @@
 // src/services/pedidoService.js
 const Pedido = require('../models/pedido');
+const Product = require('../models/product');
 const mongoose = require('mongoose');
 
 /**
  * Crear pedido
  */
 const createPedido = async (data) => {
-  const pedido = new Pedido(data);
-  return await pedido.save();
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    // Validar stock de cada producto
+    if (data.productos && Array.isArray(data.productos)) {
+      for (const item of data.productos) {
+        // Busquem el producte per ID si el tenim, si no pel nom (per flexibilitat)
+        let product;
+        if (item.producto) {
+          product = await Product.findById(item.producto).session(session);
+        } else {
+          product = await Product.findOne({ nombre: item.nombre_producto }).session(session);
+        }
+
+        if (!product) {
+          throw new Error(`Producte no trobat: ${item.nombre_producto}`);
+        }
+
+        if (product.stock < item.cantidad) {
+          throw new Error(`Stock insuficient per a ${item.nombre_producto}. Disponible: ${product.stock}`);
+        }
+
+        // Decrementar stock
+        product.stock -= item.cantidad;
+        await product.save({ session });
+      }
+    }
+
+    const pedido = new Pedido(data);
+    const savedPedido = await pedido.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+    
+    return savedPedido;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
 };
 
 /**

@@ -3,6 +3,7 @@
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
+    "stripe": "^22.0.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }

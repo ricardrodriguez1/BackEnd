@@ -12,6 +12,11 @@ const app = express();
 
 // Middlewares
 app.use(cors()); // ✅ IMPRESCINDIBLE para que el frontend pueda conectar
+
+// El webhook de Stripe necessita el "raw body" per verificar la firma. 
+// Ho posem ABANS d'express.json()
+app.use('/api/checkout/webhook', express.raw({ type: 'application/json' }));
+
 app.use(express.json());
 
 // Swagger docs
@@ -27,7 +32,9 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/usuarios', require('./routes/userRoutes')); // Alias
 app.use('/api/usuari', require('./routes/userRoutes'));  // Alias
 app.use('/api/pedidos', require('./routes/pedidoRoutes'));
+app.use('/api/orders', require('./routes/pedidoRoutes')); // Alias per requeriment 4.2
 app.use('/api/categorias', require('./routes/categoriaRoutes'));
+app.use('/api/checkout', require('./routes/checkoutRoutes')); // Stripe required 4.3
 
 // Ruta de prueba para verificar que el servidor funciona
 app.get('/api/health', (req, res) => {
