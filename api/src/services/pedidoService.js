@@ -7,9 +7,6 @@ const mongoose = require('mongoose');
  * Crear pedido
  */
 const createPedido = async (data) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     // Validar stock de cada producto
     if (data.productos && Array.isArray(data.productos)) {
@@ -17,9 +14,9 @@ const createPedido = async (data) => {
         // Busquem el producte per ID si el tenim, si no pel nom (per flexibilitat)
         let product;
         if (item.producto) {
-          product = await Product.findById(item.producto).session(session);
+          product = await Product.findById(item.producto);
         } else {
-          product = await Product.findOne({ nombre: item.nombre_producto }).session(session);
+          product = await Product.findOne({ nombre: item.nombre_producto });
         }
 
         if (!product) {
@@ -32,20 +29,16 @@ const createPedido = async (data) => {
 
         // Decrementar stock
         product.stock -= item.cantidad;
-        await product.save({ session });
+        await product.save();
       }
     }
 
     const pedido = new Pedido(data);
-    const savedPedido = await pedido.save({ session });
-
-    await session.commitTransaction();
-    session.endSession();
+    const savedPedido = await pedido.save();
     
     return savedPedido;
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
+    console.error('Error en createPedido:', error);
     throw error;
   }
 };

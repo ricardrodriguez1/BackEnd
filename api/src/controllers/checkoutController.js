@@ -60,8 +60,11 @@ const createSession = async (req, res) => {
 
         return res.json({ status: 'success', id: session.id, url: session.url });
     } catch (error) {
-        console.error('Error creant sessió de Stripe:', error);
-        return res.status(500).json({ status: 'error', message: error.message });
+        console.error('CRITICAL ERROR in createSession:', error);
+        return res.status(500).json({ 
+            status: 'error', 
+            message: `Error Stripe: ${error.message}`
+        });
     }
 };
 

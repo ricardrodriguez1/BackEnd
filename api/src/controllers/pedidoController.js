@@ -14,7 +14,10 @@ const createPedido = async (req, res) => {
       return res.status(400).json({ status: 'error', message: messages.join('; ') });
     }
     console.error('Error creando pedido:', error);
-    return res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
+    return res.status(500).json({ 
+      status: 'error', 
+      message: `Error interno: ${error.message}`
+    });
   }
 };
 

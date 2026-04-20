@@ -1,6 +1,7 @@
 // src/index.js
+const path = require('path');
 // ⚠️ IMPORTANTE: dotenv debe cargarse PRIMERO, antes de cualquier otra cosa
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const express = require('express');
 const cors = require('cors');
