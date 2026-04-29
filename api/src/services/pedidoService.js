@@ -97,10 +97,21 @@ const deletePedido = async (id) => {
   return await Pedido.findByIdAndDelete(id);
 };
 
+/**
+ * Listar todos los pedidos (para admin)
+ */
+const listAllPedidos = async ({ page = 1, limit = 50 } = {}) => {
+  const skip = (page - 1) * limit;
+  const docs = await Pedido.find().sort({ createdAt: -1 }).skip(skip).limit(limit).lean();
+  const total = await Pedido.countDocuments();
+  return { data: docs, total, page, pages: Math.ceil(total / limit) };
+};
+
 module.exports = {
   createPedido,
   getPedidoById,
   listPedidosByUser,
+  listAllPedidos,
   updatePedido,
   updatePedidoEstado,
   deletePedido,

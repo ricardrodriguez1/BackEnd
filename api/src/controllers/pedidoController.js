@@ -107,10 +107,45 @@ const deletePedido = async (req, res) => {
   }
 };
 
+/**
+ * GET /api/pedidos
+ * Lista todos los pedidos (para admin)
+ */
+const listAllPedidos = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+    const result = await pedidoService.listAllPedidos({ page, limit });
+    return res.json(result.data); // Retornem directament l'array per simplificar el frontend
+  } catch (error) {
+    console.error('Error listando pedidos:', error);
+    return res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
+  }
+};
+
+/**
+ * GET /api/pedidos/mis-pedidos
+ * Lista pedidos del usuario autenticado
+ */
+const listMisPedidos = async (req, res) => {
+  try {
+    const usuarioId = req.user.id;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const result = await pedidoService.listPedidosByUser(usuarioId, { page, limit });
+    return res.json(result.data); // Retornem directament l'array per simplificar el frontend
+  } catch (error) {
+    console.error('Error listando mis pedidos:', error);
+    return res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
+  }
+};
+
 module.exports = {
   createPedido,
   getPedido,
   listPedidosByUser,
+  listAllPedidos,
+  listMisPedidos,
   patchPedido,
   updateEstado,
   deletePedido,

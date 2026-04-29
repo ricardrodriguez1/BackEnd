@@ -2,6 +2,36 @@
 const express = require('express');
 const router = express.Router();
 const pedidoController = require('../controllers/pedidoController');
+const authMiddleware = require('../middleware/authMiddleware');
+const roleMiddleware = require('../middleware/roleMiddleware');
+
+/**
+ * @swagger
+ * /api/pedidos/mis-pedidos:
+ *   get:
+ *     summary: Llistar pedidos de l'usuari autenticat
+ *     tags: [Pedidos]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Llista de pedidos
+ */
+router.get('/mis-pedidos', authMiddleware, pedidoController.listMisPedidos);
+
+/**
+ * @swagger
+ * /api/pedidos:
+ *   get:
+ *     summary: Llistar tots els pedidos (Admin)
+ *     tags: [Pedidos]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Llista de tots els pedidos
+ */
+router.get('/', authMiddleware, roleMiddleware('administrador'), pedidoController.listAllPedidos);
 
 /**
  * @swagger

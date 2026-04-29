@@ -29,7 +29,8 @@ const loginUser = async (req, res) => {
       user: {
         id: result.user._id,
         nombre: result.user.nombre || result.user.email,
-        email: result.user.email
+        email: result.user.email,
+        rol: result.user.rol || 'cliente'
       }
     });
   } catch (error) {
